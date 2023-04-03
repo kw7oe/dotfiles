@@ -1,4 +1,11 @@
-{ pkgs, ... }: {
+{ pkgs, ... }: 
+  let 
+    luaPlugin = plugin: configPath: {
+      inherit plugin;
+      type = "lua";
+      config = builtins.readFile configPath;
+    };
+  in {
   home.username = "kai"; 
   home.homeDirectory = "/home/kai"; 
   home.stateVersion = "22.11";
@@ -77,12 +84,19 @@
     enable = true;
     vimAlias = true;
     extraConfig = ''
+    let loaded_netrw = 1
+    let loaded_netrwPlugin = 1
     set termguicolors
     colorscheme onedark
     '';
     plugins = with pkgs.vimPlugins; [
       vim-nix
       onedark-vim
+      nvim-web-devicons
+
+
+      (luaPlugin nvim-tree-lua ./config/nvim-tree.lua)
+      (luaPlugin lualine-nvim ./config/lualine.lua)
     ];
   };
 }
