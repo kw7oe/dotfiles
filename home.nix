@@ -25,6 +25,7 @@
     enable = true;
     enableCompletion = true;
     enableAutosuggestions = true;
+    enableSyntaxHighlighting = true;
     history = {
       path = "$HOME/.zsh_history";
       size = 50000;
@@ -43,15 +44,6 @@
         src = pkgs.fetchFromGitHub {
           owner = "zsh-users";
           repo = "zsh-autosuggestions";
-          rev = "v0.6.3";
-          sha256 = "1h8h2mz9wpjpymgl2p7pc146c1jgb3dggpvzwm9ln3in336wl95c";
-        };
-      }
-      {
-        name = "zsh-syntax-highligthing";
-        src = pkgs.fetchFromGitHub {
-          owner = "zsh-users";
-          repo = "zsh-syntax-highlighting";
           rev = "v0.6.3";
           sha256 = "1h8h2mz9wpjpymgl2p7pc146c1jgb3dggpvzwm9ln3in336wl95c";
         };
@@ -84,8 +76,10 @@
     enable = true;
     vimAlias = true;
     extraConfig = ''
+    let mapleader = " "
     let loaded_netrw = 1
     let loaded_netrwPlugin = 1
+
     set termguicolors
     colorscheme onedark
     '';
@@ -94,9 +88,13 @@
       onedark-vim
       nvim-web-devicons
 
+      rust-vim
 
       (luaPlugin nvim-tree-lua ./config/nvim-tree.lua)
       (luaPlugin lualine-nvim ./config/lualine.lua)
+      (luaPlugin telescope-nvim ./config/telescope.lua)
+      (luaPlugin vim-floaterm ./config/floaterm.lua)
+
     ];
   };
 }
