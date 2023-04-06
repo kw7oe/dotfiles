@@ -21,8 +21,12 @@
       pkgs.htop
       pkgs.watch
       pkgs.jq
-      pkgs.rustup
       pkgs.mdcat
+
+      pkgs.rustup
+      pkgs.erlang
+      pkgs.elixir
+      pkgs.nodejs
     ];
 
     programs.bat.enable = true;
