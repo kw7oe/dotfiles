@@ -5,6 +5,7 @@ vim.keymap.set('n', '<leader>t', '<cmd>Telescope<cr>', { desc = 'Telescope' })
 vim.keymap.set('n', '<leader>ff', '<cmd>Telescope find_files<cr>', { desc = 'Files' })
 vim.keymap.set('n', '<leader>fb', '<cmd>Telescope buffers<cr>', { desc = 'Buffers' })
 vim.keymap.set('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', { desc = 'Live Grep' })
+vim.keymap.set('n', '<leader>dd', '<cmd>Telescope diagnostics<cr>')
 -- vim.keymap.set('n', '<leader>e', '<cmd>Telescope file_browser<cr>', { desc = 'File Browser' })
 
 vim.keymap.set('n', 'ghg', '<cmd>Telescope git_status<cr>', { desc = 'Git Status' })

@@ -22,6 +22,7 @@
       pkgs.watch
       pkgs.jq
       pkgs.rustup
+      pkgs.mdcat
     ];
 
     programs.bat.enable = true;
@@ -101,12 +102,20 @@
         (luaPlugin telescope-nvim ./config/telescope.lua)
         (luaPlugin vim-floaterm ./config/floaterm.lua)
 
-      # LSP
-      nvim-lspconfig
-      (luaPluginInline mason-nvim "require('mason').setup()")
-      (luaPlugin mason-lspconfig-nvim ./config/mason-lspconfig-nvim.lua)
-      (luaPlugin nvim-cmp ./config/nvim-cmp.lua)
-      (luaPlugin cmp-nvim-lsp ./config/cmp-nvim-lsp.lua)
+        # LSP
+        nvim-lspconfig
+        (luaPluginInline mason-nvim "require('mason').setup()")
+        (luaPlugin mason-lspconfig-nvim ./config/mason-lspconfig-nvim.lua)
+
+        cmp-nvim-lua
+        cmp-nvim-lsp-signature-help
+        cmp-vsnip
+        cmp-path
+        cmp-buffer
+        vim-vsnip
+
+        (luaPlugin nvim-cmp ./config/nvim-cmp.lua)
+        (luaPlugin cmp-nvim-lsp ./config/cmp-nvim-lsp.lua)
     ];
   };
 }
