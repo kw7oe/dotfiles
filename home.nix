@@ -27,6 +27,10 @@
       pkgs.erlang
       pkgs.elixir
       pkgs.nodejs
+
+      pkgs.zookeeper
+      pkgs.apacheKafka
+      pkgs.postgresql_15
     ];
 
     programs.bat.enable = true;
@@ -105,6 +109,27 @@
         (luaPlugin lualine-nvim ./config/lualine.lua)
         (luaPlugin telescope-nvim ./config/telescope.lua)
         (luaPlugin vim-floaterm ./config/floaterm.lua)
+
+        (luaPlugin (nvim-treesitter.withPlugins (
+          # https://github.com/NixOS/nixpkgs/tree/nixos-unstable/pkgs/development/tools/parsing/tree-sitter/grammars
+          plugins:
+            with plugins; [
+              tree-sitter-elixir
+              tree-sitter-rust
+              tree-sitter-lua
+              tree-sitter-vim
+              tree-sitter-html
+              tree-sitter-yaml
+              tree-sitter-json
+              tree-sitter-bash
+              tree-sitter-javascript
+              tree-sitter-nix
+              tree-sitter-typescript
+              tree-sitter-c
+              tree-sitter-sql
+              tree-sitter-dockerfile
+            ]
+        )) ./config/nvim-treesitter.lua)
 
         # LSP
         nvim-lspconfig
