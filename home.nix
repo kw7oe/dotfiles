@@ -10,7 +10,27 @@
       inherit plugin config;
       type = "lua";
     };
-  in {
+
+    postgresConf =
+      pkgs.writeText "postgresql.conf"
+      ''
+        # Add Custom Settings
+        log_min_messages = warning
+        log_min_error_statement = error
+        log_min_duration_statement = 100  # ms
+        log_connections = on
+        log_disconnections = on
+        log_duration = on
+        #log_line_prefix = '[] '
+        log_timezone = 'UTC'
+        log_statement = 'all'
+        log_directory = 'pg_log'
+        log_filename = 'postgresql-%Y-%m-%d_%H%M%S.log'
+        logging_collector = on
+        log_min_error_statement = error
+        '';
+
+in {
     home.username = "\${USER}"; 
     home.homeDirectory = /. + builtins.toPath "/\${HOME}"; 
     home.stateVersion = "22.11";
@@ -33,6 +53,7 @@
       pkgs.postgresql_15
     ];
 
+
     programs.bat.enable = true;
 
     programs.zsh = {
@@ -40,6 +61,9 @@
       enableCompletion = true;
       enableAutosuggestions = true;
       enableSyntaxHighlighting = true;
+      initExtra = ''
+      ${builtins.readFile ./shell/function.sh}
+      '';
       history = {
         path = "$HOME/.zsh_history";
         size = 50000;
@@ -79,6 +103,8 @@
         EDITOR = "vim";
         VISUAL = EDITOR;
         GIT_EDITOR = EDITOR;
+        PGDATA="$HOME/.pg";
+        PGCONF="${postgresConf}";
       };
     };
 
