@@ -6,12 +6,12 @@
 
     imports = [
       ./common.nix
-      ./modules/postgresql.nix
+      ./modules/database.nix
     ];
 
     programs.zsh = {
       initExtra = ''
-      ${builtins.readFile ./modules/postgresql.sh}
+      ${builtins.readFile ./modules/database.sh}
       '';
     };
 

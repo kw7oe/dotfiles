@@ -23,9 +23,6 @@ in {
     pkgs.erlang
     pkgs.elixir
     pkgs.nodejs
-
-    pkgs.zookeeper
-    pkgs.apacheKafka
   ];
 
   programs.bat.enable = true;
