@@ -76,6 +76,15 @@ in {
 
   programs.tmux = {
     enable = true;
+    mouse = true;
+    sensibleOnTop = false;
+    extraConfig = ''
+    unbind r
+    bind r source-file ~/.config/tmux/tmux.conf \; display "Reloaded tmux.conf"
+    '';
+    plugins = with pkgs.tmuxPlugins; [
+      onedark-theme
+    ];
   };
 
   programs.neovim = {
