@@ -19,13 +19,18 @@ in {
     pkgs.jq
     pkgs.mdcat
 
-    pkgs.rustup
     pkgs.erlang
     pkgs.elixir
     pkgs.nodejs
   ];
 
   programs.bat.enable = true;
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
+  };
 
   programs.zsh = {
     enable = true;
