@@ -12,16 +12,25 @@
     };
 in {
 
-  home.packages = [
-    pkgs.ripgrep
-    pkgs.htop
-    pkgs.watch
-    pkgs.jq
-    pkgs.mdcat
+  home.packages = with pkgs; [
+    ripgrep
+    htop
+    watch
+    jq
+    mdcat
 
-    pkgs.erlang
-    pkgs.elixir
-    pkgs.nodejs
+    # While I tried to adopt setting up rust only in 
+    # a project with flake.nix, unfortunately, the nvim,
+    # rust-analyzer integration doesn't work well. 
+    # 
+    # It can't autocomplete or show docs for the standard 
+    # libray modules...
+    #
+    # Hence falling back to use rust system wide first.
+    rustup
+    erlang
+    elixir
+    nodejs
   ];
 
   programs.bat.enable = true;
