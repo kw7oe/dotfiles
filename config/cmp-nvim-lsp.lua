@@ -14,12 +14,27 @@ local lsp_attach = function(client, bufnr)
    vim.keymap.set('n', 'ga', '<cmd> lua vim.lsp.buf.code_action()<CR>', opts)
 end
 
+vim.lsp.set_log_level('debug')
 local lspconfig = require('lspconfig')
-require('mason-lspconfig').setup_handlers({
-  function(server_name)
-    lspconfig[server_name].setup({
-      on_attach = lsp_attach,
-      capabilities = lsp_capabilities,
-    })
-  end,
+local rt = require("rust-tools")
+
+rt.setup({
+  server = {
+    on_attach = lsp_attach,
+    capabilities = lsp_capabilities,
+  },
 })
+
+-- require('mason-lspconfig').setup_handlers({
+--   function(server_name)
+--     lspconfig[server_name].setup({
+--       on_attach = lsp_attach,
+--       capabilities = lsp_capabilities,
+--     })
+--   end,
+-- })
+
+-- lspconfig.rust_analyzer.setup({
+--   on_attach = lsp_attach,
+--   capabilities = lsp_capabilities,
+-- })

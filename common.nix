@@ -118,6 +118,7 @@ in {
       nvim-web-devicons
 
       rust-vim
+      rust-tools-nvim
 
       (luaPluginInline nvim-comment "require('nvim_comment').setup()")
       (luaPlugin nvim-tree-lua ./config/nvim-tree.lua)
@@ -149,7 +150,7 @@ in {
         # LSP
         nvim-lspconfig
         (luaPluginInline mason-nvim "require('mason').setup()")
-        (luaPlugin mason-lspconfig-nvim ./config/mason-lspconfig-nvim.lua)
+        # (luaPlugin mason-lspconfig-nvim ./config/mason-lspconfig-nvim.lua)
 
         cmp-nvim-lua
         cmp-nvim-lsp-signature-help
