@@ -74,7 +74,7 @@ in {
           owner = "agkozak";
           repo = "zsh-z";
           rev = "master";
-          sha256 = "MHb9Q7mwgWAs99vom6a2aODB40I9JTBaJnbvTYbMwiA=";
+          sha256 = "I9kmItK2ZmAnYXcYaTA2hTvRGKAK0dq1Kbs6UDcXoK4=";
         };
       }
     ];

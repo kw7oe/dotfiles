@@ -22,6 +22,9 @@ rt.setup({
   server = {
     on_attach = lsp_attach,
     capabilities = lsp_capabilities,
+    flags = {
+      exit_timeout = 0,
+    }
   },
 })
 
