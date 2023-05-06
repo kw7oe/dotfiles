@@ -111,6 +111,10 @@ in {
 
     set termguicolors
     colorscheme onedark
+
+    au BufRead,BufNewFile *.ex,*.exs set filetype=elixir
+    au BufRead,BufNewFile *.eex,*.heex,*.leex,*.sface,*.lexs set filetype=eelixir
+    au BufRead,BufNewFile mix.lock set filetype=elixir
     '';
     plugins = with pkgs.vimPlugins; [
       vim-nix
@@ -119,6 +123,7 @@ in {
 
       rust-vim
       rust-tools-nvim
+      vim-elixir
 
       (luaPluginInline nvim-comment "require('nvim_comment').setup()")
       (luaPlugin nvim-tree-lua ./config/nvim-tree.lua)
