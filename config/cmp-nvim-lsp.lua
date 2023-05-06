@@ -16,17 +16,17 @@ end
 
 vim.lsp.set_log_level('debug')
 local lspconfig = require('lspconfig')
-local rt = require("rust-tools")
-
-rt.setup({
-  server = {
-    on_attach = lsp_attach,
-    capabilities = lsp_capabilities,
-    flags = {
-      exit_timeout = 0,
-    }
-  },
-})
+-- local rt = require("rust-tools")
+--
+-- rt.setup({
+--   server = {
+--     on_attach = lsp_attach,
+--     capabilities = lsp_capabilities,
+--     flags = {
+--       exit_timeout = 0,
+--     }
+--   },
+-- })
 
 -- require('mason-lspconfig').setup_handlers({
 --   function(server_name)
@@ -37,7 +37,13 @@ rt.setup({
 --   end,
 -- })
 
--- lspconfig.rust_analyzer.setup({
---   on_attach = lsp_attach,
---   capabilities = lsp_capabilities,
--- })
+lspconfig.rust_analyzer.setup({
+  on_attach = lsp_attach,
+  capabilities = lsp_capabilities,
+})
+
+lspconfig.tailwindcss.setup({
+  on_attach = lsp_attach,
+  capabilities = lsp_capabilities,
+  filetypes = { 'html', 'eelixir' }
+})

@@ -31,6 +31,8 @@ in {
     erlang
     elixir
     nodejs
+
+    flyctl
   ];
 
   programs.bat.enable = true;
@@ -112,6 +114,7 @@ in {
     set termguicolors
     colorscheme onedark
 
+    autocmd BufWritePre * :%s/\s\+$//e
     au BufRead,BufNewFile *.ex,*.exs set filetype=elixir
     au BufRead,BufNewFile *.eex,*.heex,*.leex,*.sface,*.lexs set filetype=eelixir
     au BufRead,BufNewFile mix.lock set filetype=elixir
@@ -120,9 +123,10 @@ in {
       vim-nix
       onedark-vim
       nvim-web-devicons
+      vim-surround
 
       rust-vim
-      rust-tools-nvim
+      # rust-tools-nvim
       vim-elixir
 
       (luaPluginInline nvim-comment "require('nvim_comment').setup()")
@@ -155,7 +159,7 @@ in {
         # LSP
         nvim-lspconfig
         (luaPluginInline mason-nvim "require('mason').setup()")
-        # (luaPlugin mason-lspconfig-nvim ./config/mason-lspconfig-nvim.lua)
+        (luaPlugin mason-lspconfig-nvim ./config/mason-lspconfig-nvim.lua)
 
         cmp-nvim-lua
         cmp-nvim-lsp-signature-help
