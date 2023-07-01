@@ -12,6 +12,13 @@
       inherit plugin config;
       type = "lua";
     };
+
+    erlang = pkgs.erlang.override {
+      version = "26.0.2";
+      sha256 = "sha256-GzF/cpTUe5hoocDK5aio/lo8oYFeTr+HkftTYpQnOdA=";
+    };
+
+    beamPkg = pkgsUnstable.beam.packagesWith erlang;
 in {
 
   home.packages = with pkgsUnstable; [
@@ -33,8 +40,8 @@ in {
     #
     # Hence falling back to use rust system wide first.
     rustup
-    beam.packages.erlangR26.elixir_1_15
-    elixir-ls
+    erlang
+    beamPkg.elixir_1_15
     nodejs
 
     flyctl
