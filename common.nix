@@ -1,5 +1,7 @@
 { pkgs, ... }:
   let
+    pkgsUnstable = import <nixpkgs-unstable> {};
+
     luaPlugin = plugin: configPath: {
       inherit plugin;
       type = "lua";
@@ -12,29 +14,33 @@
     };
 in {
 
-  home.packages = with pkgs; [
+  home.packages = with pkgsUnstable; [
     ripgrep
     htop
     watch
     jq
     mdcat
+    gnuplot
 
-    # While I tried to adopt setting up rust only in 
+    minio
+
+    # While I tried to adopt setting up rust only in
     # a project with flake.nix, unfortunately, the nvim,
-    # rust-analyzer integration doesn't work well. 
-    # 
-    # It can't autocomplete or show docs for the standard 
+    # rust-analyzer integration doesn't work well.
+    #
+    # It can't autocomplete or show docs for the standard
     # libray modules...
     #
     # Hence falling back to use rust system wide first.
     rustup
-    erlang
-    elixir
+    beam.packages.erlangR26.elixir_1_15
+    elixir-ls
     nodejs
 
     flyctl
   ];
 
+  programs.home-manager.enable = true;
   programs.bat.enable = true;
 
   programs.direnv = {
@@ -47,7 +53,7 @@ in {
     enable = true;
     enableCompletion = true;
     enableAutosuggestions = true;
-    enableSyntaxHighlighting = true;
+    syntaxHighlighting.enable = true;
     history = {
       path = "$HOME/.zsh_history";
       size = 50000;
@@ -115,6 +121,7 @@ in {
     colorscheme onedark
 
     autocmd BufWritePre * :%s/\s\+$//e
+    autocmd BufWritePre * lua vim.lsp.buf.format()
     au BufRead,BufNewFile *.ex,*.exs set filetype=elixir
     au BufRead,BufNewFile *.eex,*.heex,*.leex,*.sface,*.lexs set filetype=eelixir
     au BufRead,BufNewFile mix.lock set filetype=elixir
@@ -126,8 +133,9 @@ in {
       vim-surround
 
       rust-vim
-      # rust-tools-nvim
       vim-elixir
+      elixir-tools-nvim
+      # rust-tools-nvim
 
       (luaPluginInline nvim-comment "require('nvim_comment').setup()")
       (luaPlugin nvim-tree-lua ./config/nvim-tree.lua)

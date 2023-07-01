@@ -1,6 +1,6 @@
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lsp_attach = function(client, bufnr)
-  local opts = { buffer = bufnr, remap = false }
+  local opts = { buffer = true, noremap = true }
 
    vim.keymap.set('n', '<c-]>', '<cmd> lua vim.lsp.buf.definition()<CR>', opts)
    vim.keymap.set('n', 'K', '<cmd> lua vim.lsp.buf.hover()<CR>', opts)
@@ -14,7 +14,13 @@ local lsp_attach = function(client, bufnr)
    vim.keymap.set('n', 'ga', '<cmd> lua vim.lsp.buf.code_action()<CR>', opts)
 end
 
-vim.lsp.set_log_level('debug')
+require("elixir").setup({
+  elixirls = {
+    on_attach = lsp_attach
+  },
+})
+
+-- vim.lsp.set_log_level('debug')
 local lspconfig = require('lspconfig')
 -- local rt = require("rust-tools")
 --
