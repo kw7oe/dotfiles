@@ -14,8 +14,8 @@ git clone git@github.com:kw7oe/dotfiles.git
 curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
 ```
 
-1. By default, `home-manager` looks for `home.nix` in `$HOME/.config/home-manager.home.nix`. 
-For example, `/Users/kai/.config/home-manager/home.nix`. Let's create a symbolic link to 
+1. By default, `home-manager` looks for `home.nix` in `$HOME/.config/home-manager.home.nix`.
+For example, `/Users/kai/.config/home-manager/home.nix`. Let's create a symbolic link to
 the `home.nix` we want:
 
 ```

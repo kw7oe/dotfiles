@@ -16,7 +16,8 @@ end
 
 require("elixir").setup({
   elixirls = {
-    on_attach = lsp_attach
+    on_attach = lsp_attach,
+    tag = "v0.15.1"
   },
 })
 

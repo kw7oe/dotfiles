@@ -17,8 +17,8 @@
       version = "26.0.2";
       sha256 = "sha256-GzF/cpTUe5hoocDK5aio/lo8oYFeTr+HkftTYpQnOdA=";
     };
-
     beamPkg = pkgsUnstable.beam.packagesWith erlang;
+    elixir = beamPkg.elixir_1_15;
 in {
 
   home.packages = with pkgsUnstable; [
@@ -28,6 +28,8 @@ in {
     jq
     mdcat
     gnuplot
+    lima
+    ffmpeg
 
     minio
 
@@ -41,7 +43,8 @@ in {
     # Hence falling back to use rust system wide first.
     rustup
     erlang
-    beamPkg.elixir_1_15
+    elixir_ls
+    elixir
     nodejs
 
     flyctl
@@ -125,6 +128,7 @@ in {
     let loaded_netrwPlugin = 1
 
     set termguicolors
+    set relativenumber
     colorscheme onedark
 
     autocmd BufWritePre * :%s/\s\+$//e
@@ -142,7 +146,7 @@ in {
       rust-vim
       vim-elixir
       elixir-tools-nvim
-      # rust-tools-nvim
+      vim-markdown-toc
 
       (luaPluginInline nvim-comment "require('nvim_comment').setup()")
       (luaPlugin nvim-tree-lua ./config/nvim-tree.lua)
