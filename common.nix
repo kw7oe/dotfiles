@@ -13,12 +13,12 @@
       type = "lua";
     };
 
-    erlang = pkgs.erlang.override {
-      version = "26.0.2";
-      sha256 = "sha256-GzF/cpTUe5hoocDK5aio/lo8oYFeTr+HkftTYpQnOdA=";
-    };
-    beamPkg = pkgsUnstable.beam.packagesWith erlang;
-    elixir = beamPkg.elixir_1_15;
+    # erlang = pkgs.erlang.override {
+    #   version = "26.2.1";
+    #   sha256 = "sha256-GzF/cpTUe5hoocDK5aio/lo8oYFeTr+HkftTYpQnOdA=";
+    # };
+    # beamPkg = pkgsUnstable.beam.packagesWith erlang;
+    # elixir = beamPkg.elixir_1_15;
 in {
 
   home.packages = with pkgsUnstable; [
@@ -42,9 +42,8 @@ in {
     #
     # Hence falling back to use rust system wide first.
     rustup
-    erlang
+    beam.packages.erlangR26.elixir_1_15
     elixir_ls
-    elixir
     nodejs
 
     flyctl
@@ -69,6 +68,13 @@ in {
       size = 50000;
       save = 50000;
     };
+    initExtra =''
+    # Nix
+    if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+    fi
+    # End Nix
+    '';
 
     oh-my-zsh = {
       enable = true;
@@ -92,7 +98,7 @@ in {
           owner = "agkozak";
           repo = "zsh-z";
           rev = "master";
-          sha256 = "I9kmItK2ZmAnYXcYaTA2hTvRGKAK0dq1Kbs6UDcXoK4=";
+          sha256 = "FnGjp/VJLPR6FaODY0GtCwcsTYA4d6D8a6dMmNpXQ+g=";
         };
       }
     ];
@@ -113,6 +119,9 @@ in {
     extraConfig = ''
     unbind r
     bind r source-file ~/.config/tmux/tmux.conf \; display "Reloaded tmux.conf"
+
+    # prefix - a to switch zoom on pane
+    bind -r a select-pane -t .+1 \;  resize-pane -Z
     '';
     plugins = with pkgs.tmuxPlugins; [
       onedark-theme
