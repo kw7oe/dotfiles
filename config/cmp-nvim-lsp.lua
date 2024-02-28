@@ -15,10 +15,23 @@ local lsp_attach = function(client, bufnr)
 end
 
 require("elixir").setup({
-  elixirls = {
-    on_attach = lsp_attach,
-    tag = "v0.15.1"
-  },
+  elixirls = { enable = false },
+  nextls = {
+    enable = true,
+    init_options = {
+      experimental = {
+        completions = {
+	  enable = true
+        }
+      }
+    },
+    on_attach = lsp_attach
+  }
+
+  -- elixirls = {
+  --   on_attach = lsp_attach,
+  --   tag = "v0.15.1"
+  -- },
 })
 
 -- vim.lsp.set_log_level('debug')
@@ -54,10 +67,10 @@ lspconfig.tsserver.setup({
   capabilities = lsp_capabilities,
   settings = {
     javascript = {
-	    format = {
-		    convertTabToSpaces = true,
-		    indentSize = 2,
-	    }
+      format = {
+        convertTabToSpaces = true,
+        indentSize = 2,
+      }
     }
   },
 })
@@ -65,5 +78,15 @@ lspconfig.tsserver.setup({
 lspconfig.tailwindcss.setup({
   on_attach = lsp_attach,
   capabilities = lsp_capabilities,
-  filetypes = { 'html', 'eelixir' }
+  filetypes = { 'html', 'eelixir', 'heex', 'eex' },
+  settings = {
+    tailwindCSS = {
+      experimental = {
+        classRegex = {
+          'class[:]\\s*"([^"]*)"',
+          'class[=]\\s*"([^"]*)"',
+        },
+      },
+    },
+  },
 })

@@ -115,7 +115,7 @@ in {
   programs.tmux = {
     enable = true;
     mouse = true;
-    sensibleOnTop = false;
+    sensibleOnTop = true;
     extraConfig = ''
     unbind r
     bind r source-file ~/.config/tmux/tmux.conf \; display "Reloaded tmux.conf"
@@ -125,6 +125,8 @@ in {
     '';
     plugins = with pkgs.tmuxPlugins; [
       onedark-theme
+      vim-tmux-navigator
+
     ];
   };
 
@@ -142,9 +144,6 @@ in {
 
     autocmd BufWritePre * :%s/\s\+$//e
     autocmd BufWritePre * lua vim.lsp.buf.format()
-    au BufRead,BufNewFile *.ex,*.exs set filetype=elixir
-    au BufRead,BufNewFile *.eex,*.heex,*.leex,*.sface,*.lexs set filetype=eelixir
-    au BufRead,BufNewFile mix.lock set filetype=elixir
     '';
     plugins = with pkgs.vimPlugins; [
       vim-nix
@@ -152,10 +151,12 @@ in {
       nvim-web-devicons
       vim-surround
 
+      vim-tmux-navigator
       rust-vim
-      vim-elixir
       elixir-tools-nvim
       vim-markdown-toc
+
+      # vim-tmux-navigator
 
       (luaPluginInline nvim-comment "require('nvim_comment').setup()")
       (luaPlugin nvim-tree-lua ./config/nvim-tree.lua)
@@ -168,6 +169,8 @@ in {
           plugins:
           with plugins; [
             tree-sitter-elixir
+            tree-sitter-heex
+            tree-sitter-eex
             tree-sitter-rust
             tree-sitter-lua
             tree-sitter-vim
