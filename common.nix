@@ -13,6 +13,17 @@
       type = "lua";
     };
 
+    # catppuccin-tmux = pkgs.tmuxPlugins.mkTmuxPlugin {
+    #   pluginName = "catppuccin";
+    #   version = "latest";
+    #   src = pkgs.fetchFromGitHub {
+    #     owner = "dreamsofcode-io";
+    #     repo = "catppuccin-tmux";
+    #     rev = "b4e0715";
+    #     sha256 = "sha256-FJHM6LJkiAwxaLd5pnAoF3a7AE1ZqHWoCpUJE0ncCA8=";
+    #   };
+    # };
+
     # erlang = pkgs.erlang.override {
     #   version = "26.2.1";
     #   sha256 = "sha256-GzF/cpTUe5hoocDK5aio/lo8oYFeTr+HkftTYpQnOdA=";
@@ -122,11 +133,20 @@ in {
 
     # prefix - a to switch zoom on pane
     bind -r a select-pane -t .+1 \;  resize-pane -Z
-    '';
-    plugins = with pkgs.tmuxPlugins; [
-      onedark-theme
-      vim-tmux-navigator
 
+    # set vi-mode
+    set-window-option -g mode-keys vi
+    # keybindings
+    bind-key -T copy-mode-vi v send-keys -X begin-selection
+    bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
+    bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+    '';
+    plugins = with pkgs; [
+      # tmuxPlugins.onedark-theme
+      tmuxPlugins.vim-tmux-navigator
+      tmuxPlugins.catppuccin
+      tmuxPlugins.yank
+      # catppuccin-tmux
     ];
   };
 
