@@ -53,8 +53,7 @@ in {
     #
     # Hence falling back to use rust system wide first.
     rustup
-    beam.packages.erlangR26.elixir_1_15
-    elixir_ls
+    beam.packages.erlang_27.elixir_1_17
     nodejs
 
     flyctl
@@ -72,7 +71,7 @@ in {
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     history = {
       path = "$HOME/.zsh_history";
@@ -80,6 +79,8 @@ in {
       save = 50000;
     };
     initExtra =''
+    export TERM="xterm-256color"
+
     # Nix
     if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
     . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
@@ -134,6 +135,8 @@ in {
     # prefix - a to switch zoom on pane
     bind -r a select-pane -t .+1 \;  resize-pane -Z
 
+    set -g default-terminal "tmux"
+
     # set vi-mode
     set-window-option -g mode-keys vi
     # keybindings
@@ -167,16 +170,14 @@ in {
     '';
     plugins = with pkgs.vimPlugins; [
       vim-nix
-      onedark-vim
+      onedark-nvim
       nvim-web-devicons
       vim-surround
 
       vim-tmux-navigator
-      rust-vim
+      rust-tools-nvim
       elixir-tools-nvim
       vim-markdown-toc
-
-      # vim-tmux-navigator
 
       (luaPluginInline nvim-comment "require('nvim_comment').setup()")
       (luaPlugin nvim-tree-lua ./config/nvim-tree.lua)

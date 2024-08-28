@@ -15,18 +15,19 @@ local lsp_attach = function(client, bufnr)
 end
 
 require("elixir").setup({
-  elixirls = { enable = false },
-  nextls = {
-    enable = true,
-    init_options = {
-      experimental = {
-        completions = {
-	  enable = true
-        }
-      }
-    },
-    on_attach = lsp_attach
-  }
+  elixirls = { enable = true },
+  -- nextls = {
+  --   enable = true,
+  --   cmd = "/Users/kai/.local/share/nvim/mason/bin/nextls",
+  --   init_options = {
+  --     experimental = {
+  --       completions = {
+  -- 	  enable = true
+  --       }
+  --     }
+  --   },
+  --   on_attach = lsp_attach
+  -- }
 
   -- elixirls = {
   --   on_attach = lsp_attach,
@@ -36,6 +37,20 @@ require("elixir").setup({
 
 -- vim.lsp.set_log_level('debug')
 local lspconfig = require('lspconfig')
+local rt = {
+    server = {
+        cmd_env = { CARGO_TARGET_DIR = "target/analyzer" },
+        settings = {
+            ['rust-analyzer'] = {
+                checkOnSave = {
+                    extraArgs = { "--target-dir", "target/analyzer" }
+                },
+            },
+        },
+    },
+}
+require("rust-tools").setup(rt)
+
 -- local rt = require("rust-tools")
 --
 -- rt.setup({
@@ -57,10 +72,10 @@ local lspconfig = require('lspconfig')
 --   end,
 -- })
 
-lspconfig.rust_analyzer.setup({
-  on_attach = lsp_attach,
-  capabilities = lsp_capabilities,
-})
+-- lspconfig.rust_analyzer.setup({
+--   on_attach = lsp_attach,
+--   capabilities = lsp_capabilities,
+-- })
 
 lspconfig.tsserver.setup({
   on_attach = lsp_attach,
