@@ -124,18 +124,34 @@ in {
     };
   };
 
+  programs.starship = {
+    enable = true;
+    # Configuration written to ~/.config/starship.toml
+    settings = {
+      # add_newline = false;
+
+      # character = {
+      #   success_symbol = "[➜](bold green)";
+      #   error_symbol = "[➜](bold red)";
+      # };
+
+      # package.disabled = true;
+    };
+  };
+
   programs.tmux = {
     enable = true;
     mouse = true;
     sensibleOnTop = true;
     extraConfig = ''
     unbind r
+    set -g default-terminal "tmux-256color"
+    set -ga terminal-overrides ",xterm-256color:Tc"
+
     bind r source-file ~/.config/tmux/tmux.conf \; display "Reloaded tmux.conf"
 
     # prefix - a to switch zoom on pane
     bind -r a select-pane -t .+1 \;  resize-pane -Z
-
-    set -g default-terminal "tmux"
 
     # set vi-mode
     set-window-option -g mode-keys vi
@@ -161,16 +177,14 @@ in {
     let loaded_netrw = 1
     let loaded_netrwPlugin = 1
 
-    set termguicolors
     set relativenumber
-    colorscheme onedark
 
     autocmd BufWritePre * :%s/\s\+$//e
     autocmd BufWritePre * lua vim.lsp.buf.format()
     '';
     plugins = with pkgs.vimPlugins; [
       vim-nix
-      onedark-nvim
+      (luaPlugin onedark-nvim ./config/theme.lua)
       nvim-web-devicons
       vim-surround
 
