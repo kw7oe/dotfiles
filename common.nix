@@ -79,8 +79,6 @@ in {
       save = 50000;
     };
     initExtra =''
-    export TERM="xterm-256color"
-
     # Nix
     if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
     . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
@@ -146,7 +144,7 @@ in {
     extraConfig = ''
     unbind r
     set -g default-terminal "tmux-256color"
-    set -ga terminal-overrides ",xterm-256color:Tc"
+    set -ga terminal-overrides ",xterm-256color:RGB"
 
     bind r source-file ~/.config/tmux/tmux.conf \; display "Reloaded tmux.conf"
 
