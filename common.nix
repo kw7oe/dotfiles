@@ -34,7 +34,7 @@ in {
 
   home.packages = with pkgsUnstable; [
     ripgrep
-    htop
+    btop
     watch
     jq
     mdcat
@@ -53,10 +53,8 @@ in {
     #
     # Hence falling back to use rust system wide first.
     rustup
-    beam.packages.erlang_27.elixir_1_17
+    beam.packages.erlang_27.elixir_1_18
     nodejs
-
-    flyctl
   ];
 
   programs.home-manager.enable = true;
@@ -79,6 +77,9 @@ in {
       save = 50000;
     };
     initExtra =''
+    # Manually source fzf due to this issue:
+    # https://github.com/nix-community/home-manager/issues/6704
+    source <(fzf --zsh)
     # Nix
     if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
     . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
@@ -120,6 +121,11 @@ in {
       GIT_EDITOR = EDITOR;
       PGDATA="$HOME/.pg";
     };
+  };
+
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
   };
 
   programs.starship = {
