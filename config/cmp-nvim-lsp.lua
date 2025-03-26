@@ -77,19 +77,6 @@ require("rust-tools").setup(rt)
 --   capabilities = lsp_capabilities,
 -- })
 
-lspconfig.tsserver.setup({
-  on_attach = lsp_attach,
-  capabilities = lsp_capabilities,
-  settings = {
-    javascript = {
-      format = {
-        convertTabToSpaces = true,
-        indentSize = 2,
-      }
-    }
-  },
-})
-
 lspconfig.tailwindcss.setup({
   on_attach = lsp_attach,
   capabilities = lsp_capabilities,

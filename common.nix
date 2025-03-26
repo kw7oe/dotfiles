@@ -108,7 +108,7 @@ in {
           owner = "agkozak";
           repo = "zsh-z";
           rev = "master";
-          sha256 = "FnGjp/VJLPR6FaODY0GtCwcsTYA4d6D8a6dMmNpXQ+g=";
+          sha256 = "sha256-CJjPjXIHUpEcKoExyskVeJGWXAjr2Pix3Uszuy/veGc=";
         };
       }
     ];

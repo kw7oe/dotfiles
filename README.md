@@ -23,6 +23,13 @@ mkdir -p $HOME/.config/home-manager
 ln -s $HOME/dotfiles/mac-home.nix $HOME/.config/home-manager/home.nix
 ```
 
+1. Since we use unstable nix packages, let's install that as well first:
+
+```
+nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs-unstable
+nix-channel --update
+```
+
 1. Install `home-manager` with `nix`:
 
 ```

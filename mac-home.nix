@@ -6,7 +6,7 @@
 
     imports = [
       ./common.nix
-      ./modules/database.nix
+      # ./modules/database.nix
     ];
 
     programs.zsh = {
